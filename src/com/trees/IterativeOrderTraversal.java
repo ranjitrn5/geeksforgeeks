@@ -105,12 +105,15 @@ public class IterativeOrderTraversal {
 
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree();
-		 	bt.addNode(10);
+/*		 	bt.addNode(10);
 	        bt.addNode(15);
 	        bt.addNode(19);
 	        bt.addNode(17);
 	        bt.addNode(11);
-	        bt.addNode(-11);
+	        bt.addNode(-11);*/
+		
+        bt.root = new Node(1);
+        bt.root.left = new Node(2);
 	        
 	        iterativeInorderTraversal(bt.root);
 	        iterativePreOrderTraversal(bt.root);

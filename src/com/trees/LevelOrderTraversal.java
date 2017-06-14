@@ -31,9 +31,69 @@ public class LevelOrderTraversal {
 			
 			tempNode = queue.poll();
 		}
-		
+
 		System.out.println("");
-		System.out.println("Size of Binary Tree: "+count);
+		/*System.out.println("Size of Binary Tree: "+count);*/
+	}
+	/*
+	 * Calculates maximum width using level order traversal
+	 */
+	public static int getMaxWidth(Node root){
+		if(root == null){
+			return 0;
+		}
+		
+		Queue<Node> q = new LinkedList<Node>();
+		q.add(root);
+		int maxWidth = 0, count;
+		while(!q.isEmpty()){
+			count = q.size();
+			maxWidth = Math.max(count, maxWidth);
+			while(count > 0){
+				root = q.remove();
+				if(root.left != null){
+					q.add(root.left);
+				}
+				if(root.right != null){
+					q.add(root.right);
+				}
+				count--;
+			}
+		}
+		return maxWidth;
+	}
+	/*
+	 * Display the node data at a particular distance from root node
+	 */
+	public static void displayNodeAtKDistanceFromRoot(Node root, int k){
+		if(root == null){
+			return;
+		}
+		Queue<Node> q = new LinkedList<Node>();
+		q.add(root);
+		int count=0,level=0;
+		while(!q.isEmpty()){
+			count = q.size();
+			if(level == k){
+				break;
+			}
+			level++;
+			while(count > 0){
+				root = q.poll();
+				if(root.left != null){
+					q.add(root.left);
+				}
+				if(root.right != null){
+					q.add(root.right);
+				}
+				count--;
+			}
+		}
+		System.out.println("Nodes at distance "+k+" from root:");
+		while(!q.isEmpty()){
+			System.out.print(q.poll().data+ " ");
+		}
+		System.out.println("");
 	}
 
 	public static void main(String[] args) {
@@ -48,7 +108,8 @@ public class LevelOrderTraversal {
 		bt.addNode(-1);
 		
 		levelOrderTraversal(bt.root);
-		
+		System.out.println("Maximum Width of binaryTree: "+getMaxWidth(bt.root));
+		displayNodeAtKDistanceFromRoot(bt.root, 3);
 
 	}
 
