@@ -5,7 +5,9 @@
 
 package com.trees;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class LevelOrderTraversal {
@@ -95,7 +97,27 @@ public class LevelOrderTraversal {
 		}
 		System.out.println("");
 	}
-
+	
+	public static int getNodeLevel(Node root, int key, int level){
+		return getNodeLevelUtil(root, key, level++);
+	}
+	
+	public static int getNodeLevelUtil(Node root, int key, int level){
+		if(root == null){
+			return 0;
+		}
+		if(root.data == key){
+			return level+1;
+		}
+		
+		int result = getNodeLevelUtil(root.left, key, level++);
+		if(result != 0){
+			return result;
+		}
+		
+		result = getNodeLevelUtil(root.right, key, level++);
+		return result;
+	}
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree();
 		
@@ -110,6 +132,7 @@ public class LevelOrderTraversal {
 		levelOrderTraversal(bt.root);
 		System.out.println("Maximum Width of binaryTree: "+getMaxWidth(bt.root));
 		displayNodeAtKDistanceFromRoot(bt.root, 3);
+		System.out.println("Level of Node: "+19+"is: "+getNodeLevel(bt.root, 23, 0));
 
 	}
 
